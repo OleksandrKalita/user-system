@@ -1,17 +1,36 @@
-import { useGetUsersQuery } from "./redux/usersApi";
+import { Routes, Route, Navigate, Link } from "react-router-dom"
+import { MainComponents } from "./components/MainComponents";
+import { useSelector } from "react-redux";
+import { LoginPage } from "./components/LoginPage";
+import { RegistrationPage } from "./components/RegistrationPage";
 
 function App() {
-  const {data = {}, isLoading} = useGetUsersQuery();
+  const isAuth = useSelector(state => state.user.isAuth);
 
-  if (isLoading) return <h1>Loading...</h1>
   return (
     <div className="wrapper">
-      <h1>Main Page</h1>
-      <ul>
-        { 
-          data.map(item => <li key={item.id}>{item.name}</li>)
-        }
-      </ul>
+      <header className="header">
+        <div className="header_container">
+          <div className="logo">U-System</div>
+          <nav className="menu">
+            { isAuth && 
+            <ul>
+              <li></li>
+            </ul> }
+            { !isAuth && 
+            <ul>
+              <li><Link to="/" className="menu-link">Main Page</Link></li>
+              <li><Link to="/login" className="menu-link">Login</Link></li>
+            </ul> }
+          </nav>
+        </div>
+      </header>
+      <Routes>
+        <Route path="/" element={<MainComponents/>}/>
+        <Route path="/login" element={<LoginPage/>}/>
+        <Route path="/registration" element={<RegistrationPage/>}/>
+        <Route path="*" element={<Navigate to="/"/>}/>
+      </Routes>
     </div>
   );
 }
