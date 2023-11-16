@@ -1,0 +1,5 @@
+{
+    "serverPort": 3311,
+    "dbUrl": "mongodb+srv://olexandrkalita:koltDodik4mango13@u-cluster.atve4mm.mongodb.net/",
+    "secretKey": "mern-secket-key"
+}
